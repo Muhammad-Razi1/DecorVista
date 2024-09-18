@@ -2,34 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\registration;
 use App\Models\product;
 use App\Models\addedprod;
+use App\Models\registration;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
+
 class mycontroller extends Controller
 {
     //
-    public function insertdata(Request $input){
+    public function insertdata(Request $request){
         // echo $input->username;
         $table = new registration();
 
-        $table->name = $input->username;
-        $table->email = $input->useremail;
-        $table->password = $input->userpassword;
-        $table->age = $input->userage;
+        $table->name = $request->username;
+        $table->email = $request->useremail;
+        $table->password = $request->userpassword;
+        $table->age = $request->userage;
         $table->save();
         return redirect()->back()->with("successmessage","Record has been inserted");
     }
-    public function insertproduct(Request $input){
+    public function insertproduct(Request $request){
         // echo $input->username;
         $table = new product();
 
-        $table->name = $input->name;
-        $table->price = $input->price;
-        $table->category = $input->product;
-        $image=$input->file('image');
+        $table->name = $request->name;
+        $table->description = $request->desc;
+        $table->price = $request->price;
+        $table->category = $request->product;
+        $image=$request->file('image');
         $ext= rand().".".$image->getClientOriginalName();
         $image->move("Images/",$ext);
         $table->image=$ext;
@@ -98,5 +102,55 @@ class mycontroller extends Controller
         $prd = addedprod::find($id);
         $prd->delete();
         return redirect('/checkout');
+    }
+    public function ShowProduct(){
+        $products = product::all();
+        return view('AdminDashboard.showproducts', compact('products'));
+    }
+    public function DeleteProductAdmin($id){
+        $products = product::find($id);
+        $products->delete();
+        return redirect('showproduct')->with('delete', 'Product Deleted Successfully');
+    }
+    public function EditProductView($id){
+        $products = product::find($id);
+        return view('AdminDashboard.editproduct', compact('products'));
+    }
+    public function EditProductAdmin(Request $request, $id){
+        $products = product::find($id);
+
+        $products->name = $request->name;
+        $products->description = $request->desc;
+        $products->price = $request->price;
+        $image=$request->file('image');
+        $ext= rand().".".$image->getClientOriginalName();
+        $image->move("Images/",$ext);
+        $products->image=$ext;
+        $products->category = $request->category;
+
+        $products->save();
+        return redirect('showproduct')->with('Updated', 'Product Updated Successfully');
+    }
+    public function ShowUser(){
+        $users = User::all();
+        return view('AdminDashboard.users', compact('users'));
+    }
+    public function DeleteUser($id){
+        $users = User::find($id);
+        $users->delete();
+        return redirect()->back()->with('delete', 'User Deleted Successully');
+    }
+    public function EditUserView($id){
+        $user = User::find($id);
+        return view('AdminDashboard.edituser', compact('user'));
+    }
+    public function EditUser(Request $request, $id){
+        $user = User::find($id);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        $user->save();
+        return redirect('showuser')->with('updated', 'User Updated Successfully');
     }
 }

@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\mycontroller;
+use App\Http\Controllers\WebController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +16,13 @@ use App\Http\Controllers\mycontroller;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+
+
+// website controller
+
+
+Route::get('/', [WebController::class, 'WebsiteView']);
+Route::get('/addtocart/{id}', [WebController::class, 'AddToCart']);
 
 
 Route::post('/abc',[mycontroller::class,('insertdata')]);
@@ -26,6 +32,20 @@ Route::get('/fetch',[mycontroller::class,('getdata')]);
 Route::post('/del/{id}',[mycontroller::class,('delrecord')]);
 Route::post('/upd/{id}',[mycontroller::class,('updateuser')]);
 Route::post('/updaterecord',[mycontroller::class,('update')]);
+
+
+// admin panel
+
+Route::get('/showproduct', [mycontroller::class, 'ShowProduct']);
+Route::get('/deleteproduct/{id}', [mycontroller::class, 'DeleteProductAdmin']);
+Route::get('/editproduct/{id}', [mycontroller::class, 'EditProductView']);
+Route::post('/updateproduct/{id}', [mycontroller::class, 'EditProductAdmin']);
+
+Route::get('/showuser', [mycontroller::class,'ShowUser']);
+Route::get('/deleteuser/{id}', [mycontroller::class, 'DeleteUser']);
+Route::get('/edituser/{id}', [mycontroller::class, 'EditUserView']);
+Route::post('/updateuser/{id}', [mycontroller::class, 'EditUser']);
+
 
 Route::middleware([
     'auth:sanctum',

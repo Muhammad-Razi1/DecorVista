@@ -161,52 +161,21 @@ html, body {
                                 <div class="form-holder">
                                     <div class="form-content">
                                         <div class="form-items">
-                                            <h3>Upload Product</h3>
+                                            <h3>Update User</h3>
                                             <p>Fill in the data below.</p>
-                                            <form method="post"  action="/updprod" enctype="multipart/form-data">
+                                            <form method="post"  action="{{url('/updateuser', $user->id)}}" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="col-md-12">
-                                                   <input class="form-control" type="text" name="name" placeholder="Product Name" required>
+                                                   <input class="form-control" type="text" name="name" value='{{$user->name}}' required>
                                                    <div class="valid-feedback">Username field is valid!</div>
                                                    <div class="invalid-feedback">Username field cannot be blank!</div>
                                                 </div>
 
                                                 <div class="col-md-12">
-                                                    <input class="form-control" type="text" name="desc" placeholder="Product Description" required>
+                                                    <input class="form-control" type="email" name="email" value="{{$user->email}}" required>
                                                     <div class="valid-feedback">Username field is valid!</div>
                                                     <div class="invalid-feedback">Username field cannot be blank!</div>
                                                  </div>
-
-                                                <div class="col-md-12">
-                                                    <input class="form-control" type="text" name="price" placeholder="Product Price" required>
-                                                     <div class="valid-feedback">Email field is valid!</div>
-                                                     <div class="invalid-feedback">Email field cannot be blank!</div>
-                                                </div>
-
-                                                <br>
-                                                <div class="col-md-12">
-                                                    <input class="form-control" type="file" name="image" required>
-
-                                                </div>
-                                               <div class="col-md-12">
-                                                    <select class="form-select mt-3" required name="product">
-                                                          <option selected disabled value="">Category</option>
-                                                          <option value="Furniture">Furniture</option>
-                                                          <option value="Lighting">Lighting</option>
-                                                          <option value="Decor">Decor</option>
-                                                          <option value="Rugs and Carpet">Rugs and Carpet</option>
-                                                          <option value="Wall Art">Wall Art</option>
-                                                          <option value="Curtain and Blind">Curtain and Blind</option>
-
-
-                                                   </select>
-                                                    <div class="valid-feedback">You selected a position!</div>
-                                                    <div class="invalid-feedback">Please select a position!</div>
-                                               </div>
-
-
-
-
 
                                                <div class="col-md-12 mt-3">
 
@@ -215,7 +184,7 @@ html, body {
 
 
                                                 <div class="form-button mt-3">
-                                                    <button id="submit" type="submit" class="btn btn-primary">Register</button>
+                                                    <button id="submit" type="submit" class="btn btn-primary">Update</button>
                                                 </div>
                                             </form>
                                         </div>

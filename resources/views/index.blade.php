@@ -220,7 +220,7 @@
                         </a>
                       </li>
                       <li>
-                        <a href="cart.html">
+                        <a href="/checkout">
                           <svg class="cart">
                             <use xlink:href="#cart"></use>
                           </svg>
@@ -357,18 +357,17 @@
               <div class="swiper-slide">
                 <div class="product-card position-relative">
                   <div class="image-holder">
-                    <img src="assets/images/product-item1.jpg" alt="product-item" class="img-fluid">
-                  </div>
-                  <div class="cart-concern position-absolute">
-                    <div class="cart-button d-flex">
-                      <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
-                    </div>
-                  </div>
-                  <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                    <h3 class="card-title text-uppercase">
-                      <a href="#">Iphone 10</a>
-                    </h3>
-                    <span class="item-price text-primary">$980</span>
+
+                    @foreach ($product as $p)
+                    <img src="{{ asset('Images/' . $p->image) }}" alt="product-item" class="img-fluid">
+                    <p>{{$p->name}}</p>
+                    <p>{{$p->description}}</p>
+                    <p>{{$p->category}}</p>
+                    <p>{{$p->price}}</p>
+
+                    <a class="btn btn-primary" href="{{url('/addtocart', $p->id)}}">Add To Cart</a>
+                    @endforeach
+
                   </div>
                 </div>
               </div>

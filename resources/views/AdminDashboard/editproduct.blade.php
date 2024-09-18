@@ -163,22 +163,22 @@ html, body {
                                         <div class="form-items">
                                             <h3>Upload Product</h3>
                                             <p>Fill in the data below.</p>
-                                            <form method="post"  action="/updprod" enctype="multipart/form-data">
+                                            <form method="post"  action="{{url('/updateproduct', $products->id)}}" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="col-md-12">
-                                                   <input class="form-control" type="text" name="name" placeholder="Product Name" required>
+                                                   <input class="form-control" type="text" name="name" value="{{$products->name}}" required>
                                                    <div class="valid-feedback">Username field is valid!</div>
                                                    <div class="invalid-feedback">Username field cannot be blank!</div>
                                                 </div>
 
                                                 <div class="col-md-12">
-                                                    <input class="form-control" type="text" name="desc" placeholder="Product Description" required>
+                                                    <input class="form-control" type="text" name="desc" value="{{$products->description}}" required>
                                                     <div class="valid-feedback">Username field is valid!</div>
                                                     <div class="invalid-feedback">Username field cannot be blank!</div>
                                                  </div>
 
                                                 <div class="col-md-12">
-                                                    <input class="form-control" type="text" name="price" placeholder="Product Price" required>
+                                                    <input class="form-control" type="text" name="price" value="{{$products->price}}" required>
                                                      <div class="valid-feedback">Email field is valid!</div>
                                                      <div class="invalid-feedback">Email field cannot be blank!</div>
                                                 </div>
@@ -189,19 +189,8 @@ html, body {
 
                                                 </div>
                                                <div class="col-md-12">
-                                                    <select class="form-select mt-3" required name="product">
-                                                          <option selected disabled value="">Category</option>
-                                                          <option value="Furniture">Furniture</option>
-                                                          <option value="Lighting">Lighting</option>
-                                                          <option value="Decor">Decor</option>
-                                                          <option value="Rugs and Carpet">Rugs and Carpet</option>
-                                                          <option value="Wall Art">Wall Art</option>
-                                                          <option value="Curtain and Blind">Curtain and Blind</option>
+                                                <input class="form-control" type="text" name="category" value="{{$products->category}}" required>
 
-
-                                                   </select>
-                                                    <div class="valid-feedback">You selected a position!</div>
-                                                    <div class="invalid-feedback">Please select a position!</div>
                                                </div>
 
 
